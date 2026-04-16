@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-pharma-blue/80 backdrop-blur-md border border-pharma-teal/20 rounded-xl shadow-lg;
+  }
+  .input-field {
+    @apply w-full bg-pharma-dark border border-pharma-teal/50 rounded-lg px-4 py-2 text-pharma-light focus:outline-none focus:border-pharma-teal focus:ring-1 focus:ring-pharma-teal transition-all duration-300;
+  }
+  .btn-primary {
+    @apply bg-pharma-teal text-pharma-dark font-bold py-2 px-6 rounded-lg hover:bg-pharma-teal/80 transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+}
