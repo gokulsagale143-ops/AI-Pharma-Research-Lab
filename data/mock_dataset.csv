@@ -1,0 +1,5 @@
+compound_id,brand_name,smiles,target_protein,toxicity_profile,fda_approved
+CID001122,Aspirin,CC(=O)Oc1ccccc1C(=O)O,COX-1,Low,Yes
+CID001123,Ibuprofen,CC(C)CC1=CC=C(C=C1)C(C)C(=O)O,COX-2,Low,Yes
+CID001124,Mock_Compound_X,C1CCCCC1,Target_A,High,No
+CID001125,Mock_Synergy_Beta,C1=CC=CC=C1,Target_B,Moderate,No

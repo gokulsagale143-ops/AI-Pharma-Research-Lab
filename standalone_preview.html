@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Pharma Research Lab (Standalone Mock)</title>
+    <!-- Tailwind via CDN for instant styling without NodeJS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pharma: { dark: '#0A192F', blue: '#112240', teal: '#64FFDA', light: '#CCD6F6' }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-pharma-dark text-pharma-light min-h-screen p-8 font-sans">
+    <nav class="border-b border-pharma-teal/20 pb-4 mb-8">
+        <h1 class="text-2xl font-bold text-white flex items-center gap-2">
+            <span class="w-8 h-8 rounded-full bg-pharma-teal flex items-center justify-center text-pharma-dark text-sm">AI</span>
+            Pharma Research Lab
+        </h1>
+        <p class="text-sm text-pharma-light/70 mt-1">Standalone Browser Preview (No installations required)</p>
+    </nav>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="bg-pharma-blue/80 border border-pharma-teal/20 rounded-xl p-6 shadow-lg">
+            <h2 class="text-xl font-bold text-white mb-4 flex items-center gap-2">Drug Input</h2>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm text-pharma-light/70 mb-1">Drug Name</label>
+                    <input type="text" id="drugInput" placeholder="e.g., Aspirin" class="w-full bg-pharma-dark border border-pharma-teal/50 rounded-lg px-4 py-2 text-pharma-light focus:outline-none focus:border-pharma-teal">
+                </div>
+                <div>
+                    <label class="block text-sm text-pharma-light/70 mb-1">SMILES Structure</label>
+                    <input type="text" id="smilesInput" placeholder="e.g., CC(=O)Oc1ccccc1C(=O)O" class="w-full bg-pharma-dark border border-pharma-teal/50 rounded-lg px-4 py-2 font-mono text-sm focus:outline-none focus:border-pharma-teal">
+                </div>
+                <button class="w-full bg-pharma-teal text-pharma-dark font-bold py-2 rounded-lg mt-4 cursor-pointer hover:bg-pharma-teal/80" onclick="simulate()">Start AI Simulation</button>
+            </div>
+        </div>
+        <div class="lg:col-span-2 bg-pharma-blue/80 border border-pharma-teal/20 rounded-xl p-6 shadow-lg">
+            <h2 class="text-xl font-bold text-white mb-6">Live Simulation Results</h2>
+            <div id="loading" class="hidden text-center text-pharma-teal py-12">
+                <p class="animate-pulse text-lg">Simulating biological interactions...</p>
+            </div>
+            <div id="results" class="hidden space-y-6">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-pharma-dark p-4 rounded-lg text-center border border-pharma-teal/20">
+                        <h3 class="text-sm text-pharma-light/70">Effectiveness Score</h3>
+                        <p id="effScore" class="text-4xl font-bold text-pharma-teal mt-2">89%</p>
+                    </div>
+                    <div class="bg-pharma-dark p-4 rounded-lg text-center border border-pharma-teal/20">
+                        <h3 class="text-sm text-pharma-light/70">Toxicity Risk</h3>
+                        <p id="toxRisk" class="text-4xl font-bold text-green-400 mt-2">Low</p>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold text-white mb-4">AI Drug Combinations</h3>
+                    <ul class="space-y-2">
+                        <li class="bg-pharma-dark p-3 rounded flex justify-between border border-pharma-teal/20">
+                            <span><strong id="combName1" class="text-white">Aspirin</strong> + Comp Z-12</span>
+                            <span class="text-pharma-teal font-mono" id="synScore1">92% Synergy</span>
+                        </li>
+                        <li class="bg-pharma-dark p-3 rounded flex justify-between border border-pharma-teal/20">
+                            <span><strong id="combName2" class="text-white">Aspirin</strong> + Beta Enhancer</span>
+                            <span class="text-pharma-teal font-mono" id="synScore2">81% Synergy</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="idle" class="text-center py-12 text-pharma-light/50">
+                Awaiting input... Press "Start AI Simulation".
+            </div>
+        </div>
+    </div>
+    <script>
+        function simulate() {
+            const typedName = document.getElementById('drugInput').value.trim() || 'Unknown Drug';
+            const typedSmiles = document.getElementById('smilesInput').value.trim() || 'C1CCCCC1';
+            document.getElementById('idle').classList.add('hidden');
+            document.getElementById('results').classList.add('hidden');
+            document.getElementById('loading').classList.remove('hidden');
+            const eff = Math.floor(Math.random() * 50) + 45;
+            const toxScore = Math.floor(Math.random() * 100);
+            const syn1 = Math.floor(Math.random() * 30) + 70;
+            const syn2 = Math.floor(Math.random() * 30) + 60;
+            setTimeout(() => {
+                document.getElementById('combName1').textContent = typedName;
+                document.getElementById('combName2').textContent = typedName;
+                document.getElementById('effScore').textContent = eff + '%';
+                const toxItem = document.getElementById('toxRisk');
+                if(toxScore > 75) {
+                    toxItem.textContent = 'High';
+                    toxItem.className = 'text-4xl font-bold text-red-500 mt-2';
+                } else if(toxScore > 40) {
+                    toxItem.textContent = 'Moderate';
+                    toxItem.className = 'text-4xl font-bold text-yellow-400 mt-2';
+                } else {
+                    toxItem.textContent = 'Low';
+                    toxItem.className = 'text-4xl font-bold text-green-400 mt-2';
+                }
+                document.getElementById('synScore1').textContent = syn1 + '% Synergy';
+                document.getElementById('synScore2').textContent = syn2 + '% Synergy';
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('results').classList.remove('hidden');
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
